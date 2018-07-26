@@ -28,10 +28,11 @@ export class BusinessLogicLayer {
     public async getItem(id: number) {
         const { dal } = this;
         const row = await dal.selectItem(id);
+        if (row === null) return null;
         return itemRowToModel(row);
     }
 
-    public async allItems() {
+    public async itemList() {
         const { dal } = this;
         const rows = await dal.selectAllItems();
         return rows.
@@ -45,9 +46,7 @@ export class BusinessLogicLayer {
 
 }
 
-function itemRowToModel(row: ItemRow | null) {
-    if (row === null) return null;
-
+function itemRowToModel(row: ItemRow) {
     const model: ItemModel = {
         id: row.id,
         name: row.name,
