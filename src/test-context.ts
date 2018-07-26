@@ -1,5 +1,6 @@
 import * as sqlite from "sqlite3";
 import * as util from "util";
+import { BusinessLogicLayer } from "./business-logic";
 import { DataAccessLayer } from "./data-access";
 
 export class TestContext {
@@ -12,6 +13,7 @@ export class TestContext {
 
     public db = new sqlite.Database(":memory:");
     public dal = new DataAccessLayer(this.db);
+    public bll = new BusinessLogicLayer(this.dal);
 
     public async initialize() {
         const { dal } = this;

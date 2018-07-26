@@ -1,11 +1,11 @@
 import * as test from "blue-tape";
 import { TestContext } from "./test-context";
 
-test("addItem", async t => {
+test("dal.insertItem", async t => {
     const testContext = await TestContext.create();
     const { dal } = testContext;
     try {
-        await dal.addItem("testing item", 10);
+        await dal.insertItem("testing item", 10);
 
         const { count } = await dal.one(
             `SELECT COUNT(*) AS count FROM item`,
@@ -19,11 +19,11 @@ test("addItem", async t => {
     }
 });
 
-test("removeItem", async t => {
+test("dal.deleteItem", async t => {
     const testContext = await TestContext.create();
     const { dal } = testContext;
     try {
-        await dal.removeItem(2);
+        await dal.deleteItem(2);
 
         const { count } = await dal.one(
             `SELECT COUNT(*) AS count FROM item`,
@@ -36,11 +36,11 @@ test("removeItem", async t => {
     }
 });
 
-test("getItem", async t => {
+test("dal.selectItem", async t => {
     const testContext = await TestContext.create();
     const { dal } = testContext;
     try {
-        const row = await dal.getItem(2);
+        const row = await dal.selectItem(2);
 
         t.deepEqual(row, {
             id: 2,
@@ -53,11 +53,11 @@ test("getItem", async t => {
     }
 });
 
-test("allItems", async t => {
+test("dal.selectAllItems", async t => {
     const testContext = await TestContext.create();
     const { dal } = testContext;
     try {
-        const rows = await dal.allItems();
+        const rows = await dal.selectAllItems();
 
         t.deepEqual(rows.length, 4);
     }

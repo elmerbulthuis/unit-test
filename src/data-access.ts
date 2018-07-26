@@ -1,8 +1,12 @@
-import { resolveCname } from "dns";
 import * as sqlite from "sqlite3";
-import * as util from "util";
 
 export const TooManyRowsError = new Error("too many rows");
+
+export interface ItemRow {
+    id: number;
+    name: string;
+    price: number;
+}
 
 export class DataAccessLayer {
 
@@ -47,7 +51,7 @@ export class DataAccessLayer {
         const [row] = rows;
         return row;
     }
-    public async addItem(name: string, price: number) {
+    public async insertItem(name: string, price: number) {
         const result = await this.execute(
             `
 INSERT INTO item(name, price)
@@ -58,26 +62,22 @@ VALUES (?, ?);
 
         return result.lastID;
     }
-    public async removeItem(id: number) {
+    public async deleteItem(id: number) {
         await this.execute(
             `DELETE FROM item WHERE id = ?;`,
             [id],
         );
     }
-    public async getItem(id: number) {
-        const row = await this.one(
+    public async selectItem(id: number) {
+        const row = await this.one<ItemRow>(
             `SELECT * FROM item WHERE id = ?;`,
             [id],
         );
         return row;
     }
-    public async allItems() {
-        const rows = await this.many(
-            `
-SELECT *
-FROM item
-ORDER BY name
-;`,
+    public async selectAllItems() {
+        const rows = await this.many<ItemRow>(
+            `SELECT * FROM item;`,
             [],
         );
         return rows;
