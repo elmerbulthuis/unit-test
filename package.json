@@ -1,0 +1,27 @@
+{
+  "name": "unit-test",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gameye/unit-test.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Gameye/unit-test/issues"
+  },
+  "homepage": "https://github.com/Gameye/unit-test#readme",
+  "devDependencies": {
+    "@types/blue-tape": "^0.1.32",
+    "@types/tape": "^4.2.32",
+    "blue-tape": "^1.0.0",
+    "tape": "^4.9.1",
+    "tslint": "^5.11.0",
+    "typescript": "^2.9.2"
+  }
+}
